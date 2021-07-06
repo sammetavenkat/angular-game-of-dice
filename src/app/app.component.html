@@ -1,0 +1,64 @@
+
+<div style="text-align:center"><h2>Welcome to The Game Of Dice</h2></div>
+<ng-container *ngIf="!startGame">
+  Number Of Players : 
+  <input (change)="onBlurNumPlayers()" [(ngModel)]="noOfPlayers" type="number" /><br />
+  Target Score : 
+  <input [(ngModel)]="maxScore" type="number" /><br /><br />
+
+  <ng-container *ngFor="let item of playersArr; index as i;">
+    Player {{i+1}} Name: <input [(ngModel)]="item.name" type="text" /><br />
+  </ng-container>
+  <br /><br />
+  <div style="color:red">{{errorMesg}}</div>
+
+  <button (click)="onClickStartGame()">Start Game</button>
+</ng-container>
+
+
+
+<ng-container *ngIf="startGame">
+<table>
+<tr>
+  <th>Player Name</th>
+  <th>Score</th>
+  <th>Rank</th>
+  <th>Next round</th>
+</tr>
+<tr *ngFor="let item of playersArr; index as i;" [ngClass]="{'currentPlayer':currentPlayer==i}">
+  <td>{{item.name}}</td>
+  <td>{{item.score}}</td>
+  <td>{{item.rank}}</td>
+  <td>{{item.isEligibleNextRound}}</td>
+</tr>
+</table>
+<br> 
+<ng-container *ngIf="!gameOver">
+
+
+  <div style="text-align:center">{{playersArr[currentPlayer].name}} its your turn
+    <button (click)="onRollClick()" >Roll</button></div>
+    <div  style="color:blue;text-align:center">{{someMsg}}</div>
+    <div style="color:green">{{sussMsg}}</div>
+    <br>
+
+
+
+    <div style="text-align:center">
+      <img *ngIf="currentScore==1" src="https://media.geeksforgeeks.org/wp-content/uploads/20200508141000/dice1.png">
+      <img *ngIf="currentScore==2"  src="https://media.geeksforgeeks.org/wp-content/uploads/20200508141001/dice2.png">
+      <img *ngIf="currentScore==3"  src="https://media.geeksforgeeks.org/wp-content/uploads/20200508141003/dice3.png">
+      <img *ngIf="currentScore==4"  src="https://media.geeksforgeeks.org/wp-content/uploads/20200508141004/dice4.png"> 
+      <img *ngIf="currentScore==5"  src= "https://media.geeksforgeeks.org/wp-content/uploads/20200508141005/dice5.png">
+      <img *ngIf="currentScore==6"  src="https://media.geeksforgeeks.org/wp-content/uploads/20200508141006/dice6.png">
+    
+    </div>
+  </ng-container>
+<ng-container *ngIf="gameOver">
+  Game Over <button (click)="resetGame()">Play Again</button>
+</ng-container>
+
+  
+   
+
+</ng-container>
